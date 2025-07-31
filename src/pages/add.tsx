@@ -83,7 +83,7 @@ export default function AddItemForm() {
   }
 
   return (
-    <Card className="max-w-2xl mx-auto bg-white shadow-xl border-0 rounded-3xl overflow-hidden py-0">
+    <Card className="max-w-2xl mx-auto bg-white shadow-xl border-0 rounded-3xl overflow-hidden py-0 m-1">
       <CardHeader className="bg-gradient-to-r from-gray-900 to-gray-800 text-white p-8">
         <CardTitle className="text-2xl font-bold text-center">Add New Item</CardTitle>
         <p className="text-gray-300 text-center mt-2">Fill in the details below</p>

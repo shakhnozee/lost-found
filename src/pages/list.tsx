@@ -17,7 +17,7 @@ export default function ItemList() {
     const [viewMode, setViewMode] = useState<"grid" | "list">("grid")
     const [currentPage, setCurrentPage] = useState(1)
     const itemsPerPage = 6
-    
+
     console.log("list")
     const queryClient = useQueryClient()
 
@@ -88,7 +88,7 @@ export default function ItemList() {
     console.log("filteredItems:", filteredItems)
 
     return (
-        <div className="space-y-6 max-w-6xl mx-auto px-4 pb-6"> 
+        <div className="space-y-6 max-w-6xl mx-auto px-4 pb-6">
             {/* Filters */}
             <Card className="bg-white shadow-lg border-0 rounded-2xl overflow-hidden">
                 <CardContent className="p-6">
@@ -142,29 +142,37 @@ export default function ItemList() {
 
                             {/* View Toggle */}
                             <div className="flex border-2 border-gray-200 rounded-xl overflow-hidden">
-                                <Button
-                                    variant={viewMode === "grid" ? "default" : "ghost"}
-                                    size="sm"
-                                    onClick={() => setViewMode("grid")}
-                                    className={`rounded-none px-3 ${viewMode === "grid" 
-                                        ? "bg-gray-900 text-white" 
-                                        : "hover:bg-gray-100"
-                                    }`}
-                                >
-                                    <Grid3X3 className="w-4 h-4" />
-                                </Button>
-                                <Button
-                                    variant={viewMode === "list" ? "default" : "ghost"}
-                                    size="sm"
-                                    onClick={() => setViewMode("list")}
-                                    className={`rounded-none px-3 ${viewMode === "list" 
-                                        ? "bg-gray-900 text-white" 
-                                        : "hover:bg-gray-100"
-                                    }`}
-                                >
-                                    <List className="w-4 h-4" />
-                                </Button>
+                                {/* Grid Button — показывается всегда на больших экранах и на мобилке, если текущий режим list */}
+                                {(viewMode === "list" || window.innerWidth >= 640) && (
+                                    <Button
+                                        variant={viewMode === "grid" ? "default" : "ghost"}
+                                        size="sm"
+                                        onClick={() => setViewMode("grid")}
+                                        className={`rounded-none px-3 ${viewMode === "grid"
+                                            ? "bg-gray-900 text-white"
+                                            : "hover:bg-gray-100"
+                                            } ${viewMode === "grid" ? "hidden sm:flex" : "flex"}`}
+                                    >
+                                        <Grid3X3 className="w-4 h-4" />
+                                    </Button>
+                                )}
+
+                                {/* List Button — показывается всегда на больших экранах и на мобилке, если текущий режим grid */}
+                                {(viewMode === "grid" || window.innerWidth >= 640) && (
+                                    <Button
+                                        variant={viewMode === "list" ? "default" : "ghost"}
+                                        size="sm"
+                                        onClick={() => setViewMode("list")}
+                                        className={`rounded-none px-3 ${viewMode === "list"
+                                            ? "bg-gray-900 text-white"
+                                            : "hover:bg-gray-100"
+                                            } ${viewMode === "list" ? "hidden sm:flex" : "flex"}`}
+                                    >
+                                        <List className="w-4 h-4" />
+                                    </Button>
+                                )}
                             </div>
+
                         </div>
                     </div>
                 </CardContent>
@@ -173,7 +181,7 @@ export default function ItemList() {
             {/* Results */}
             <div className="text-center mb-4">
                 <p className="text-gray-600">
-                    Showing {paginatedItems.length} of {filteredItems.length} items 
+                    Showing {paginatedItems.length} of {filteredItems.length} items
                     {totalPages > 1 && (
                         <span className="ml-2">
                             (Page {currentPage} of {totalPages})
@@ -283,7 +291,7 @@ export default function ItemList() {
                                             }}
                                         />
                                     </div>
-                                    
+
                                     <div className="flex-1">
                                         <div className="flex items-start justify-between mb-3">
                                             <h3 className="font-bold text-xl text-gray-900">{item.name}</h3>
@@ -376,7 +384,7 @@ export default function ItemList() {
                                         className={`rounded-xl w-10 h-10 ${currentPage === page
                                             ? "bg-gray-900 text-white"
                                             : "border-2 border-gray-200 hover:border-gray-400"
-                                        }`}
+                                            }`}
                                     >
                                         {page}
                                     </Button>
